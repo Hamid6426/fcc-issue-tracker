@@ -1,27 +1,24 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const mongoose = require('mongoose');
 
-// const IssueSchema = new Schema({
-//     issue_title: { type: String, required: true },
-//     issue_text: { type: String, required: true },
-//     created_on: Date,
-//     updated_on: Date,
-//     created_by: { type: String, required: true },
-//     assigned_to: String,
-//     open: Boolean,
-//     status_text: String,
-// });
+const issueSchemaOptions = {
+    timestamps: {
+        createdAt: 'created_on',
+        updatedAt: 'updated_on'
+    }
+};
 
-const IssueSchema = new Schema({
+const IssueSchema = mongoose.Schema({
+
+    projectId: { type: String, required: true },
     issue_title: { type: String, required: true },
     issue_text: { type: String, required: true },
-    created_on: { type: Date, default: Date.now },
-    updated_on: { type: Date, default: Date.now },
     created_by: { type: String, required: true },
-    assigned_to: { type: String, default: "" },
+    assigned_to: { type: String, default: ''},
     open: { type: Boolean, default: true },
-    status_text: { type: String, default: "" },
-});
+    status_text: { type: String, default: '' }
 
-const Issue = mongoose.model("Issue", IssueSchema);
-exports.Issue = Issue;
+}, issueSchemaOptions);
+
+const Issue = mongoose.model('issues', IssueSchema);
+
+module.exports = Issue; 
